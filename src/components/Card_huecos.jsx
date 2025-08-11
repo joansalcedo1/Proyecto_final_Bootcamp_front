@@ -1,4 +1,4 @@
-import Modal from "./ModalConfirm"
+import Modal from "./Modal_Hueco"
 export default function Card_huecos() {
     
     return (
@@ -15,19 +15,20 @@ export default function Card_huecos() {
                         </div>
                         <div className="">
                             {/*Pensarlo como una capsula con color*/}
-                            <p className="card-text rounded-3 text-center bg-info text-secondary">
-                                Grande
+                            <p className="card-text text-secondary">
+                                      <span class="badge bg-danger">Grande</span>
+
                                 {/* {libro.generos.join(", ")} */}
                             </p>
                         </div>
                     </div>
                     <div className="bg-secondary row rounded mt-2">
                         <Modal
-                        titulo={"cra 53 #15-56"}
-                        info={"grande"}
-                    
+                        direccion={"cra 53 #15-56"}
+                        categoria={"grande"}
+                        comentarios={"Es un hueco de 1.5 milimetros hay que tener mucho cuidado"}
                         modalID={"modal-cra53"}
-                        type={false}
+                        
                             //  direccion={libro.portada}
                             // categoria={libro.autor.replaceAll("_", " ")}
                             // comentarios={5555}
