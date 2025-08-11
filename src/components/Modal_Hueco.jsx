@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import MyMap from "./MapboxModal";
 export default function Modal({ direccion, categoria, comentarios, modalID }) {
     const [bgColor, setBgColor] = useState("")
     useEffect(() => {
@@ -50,15 +51,8 @@ export default function Modal({ direccion, categoria, comentarios, modalID }) {
                                 <div className="col d-flex flex-column">
                                     <p><b>Observaciones: </b>{comentarios}</p>
                                     <div id="img-container" className="flex-grow-1">
-                                        <iframe
-                                            src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3079.2433352760974!2d-76.53057582642577!3d3.404313951534037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a6b52d3b25c3%3A0x580cf00cd5df2137!2s${encodedAddress}%2C%20Comuna%2017%2C%20Cali%2C%20Valle%20del%20Cauca!5e1!3m2!1ses!2sco!4v1754886502844!5m2!1ses!2sco`}
-                                            width="100% "
-                                            height="100%"
-                                            style={{ border: 0, minHeight: "200px" }}
-                                            allowFullScreen=""
-                                            loading="lazy"
-                                            referrerPolicy="no-referrer-when-downgrade"
-                                        ></iframe>
+                                        <MyMap
+                                        corde={direccion}/>
                                     </div>
 
                                     <div className="text-center mt-3">

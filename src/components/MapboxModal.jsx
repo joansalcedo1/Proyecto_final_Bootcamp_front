@@ -3,14 +3,19 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import convertirCoords from "../services/geoCoding.js";
 import { useEffect, useState } from "react"
 
-export default function MyMap() {
+export default function MyMap({corde}) {
+  if(!corde) return;
+  const ancho="100%"
+  const largo=400
   const [coords, setCoords] = useState(null)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await convertirCoords("cra56 #15-56")
+        const data = await convertirCoords(corde)
         if (data) {
           setCoords(data)
+        }else{
+          console.log("data esta vacio desde mapbox Example")
         }
       } catch (error) {
         console.log(error)
@@ -18,25 +23,24 @@ export default function MyMap() {
     }
     fetchData()
 
-  }, []);
-  console.log("desde mapBoxxxExample", coords)
+  }, [corde]);
+  
   return (
     <Map
       initialViewState={{
         longitude: coords?.[0] || -76.53,
         latitude: coords?.[1] || 3.40,
-        zoom: 14
+        zoom: 13
       }}
-      style={{ width: '100%', height: 400 }}
+      style={{ width: ancho, height: largo }}
       mapStyle="mapbox://styles/mapbox/streets-v11"
       mapboxAccessToken="pk.eyJ1Ijoic2ViMTAxMSIsImEiOiJjbWUydDVxZnUwdHV4Mmtwa3Q0b2FmdWFiIn0.4-Hb5WmIe21pLf3-clWYnw"
     >
-      {coords && (
+      {/* Esto asegura que solo se renderiza el marcador cuando coords ya tiene un array [lng, lat]. */}
+      {coords && 
+      (
         <Marker longitude={coords[0]} latitude={coords[1]} />
       )}
-      <Marker longitude={-76.53} latitude={3.40} />
-      <Marker longitude={-76.529} latitude={3.40} />
-
     </Map>
   );
 }

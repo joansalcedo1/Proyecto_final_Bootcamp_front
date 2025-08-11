@@ -1,24 +1,6 @@
-import MapboxExample from "./MapboxExample"
-import convertirCoords from "../services/geoCoding.js";
-import { useEffect, useState } from "react"
+import MyMap from "./MapBoxGeneral.jsx"
 export default function Hero() {
-    const [coords, setCoords] = useState(null)
-    let arrayP = ["40", "10"]
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await convertirCoords()
-                if (data) {
-                    setCoords(data)
-                }
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        fetchData()
-        
-    }, []);
+    
     return (
         <>
             <section class="m-4 mt-5 ">
@@ -62,9 +44,9 @@ export default function Hero() {
                     </div>
                 </div>
                 <div className="text-center container">
-                    <h1>MAPA AQUI</h1>
+                    <h2>MAPA AQUI</h2>
                     <div>
-                        <MapboxExample/>
+                        <MyMap/>
                     </div>
                     {/* <img class="img-fluid img" src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s+ff0000(-74.5,40),pin-l+0000ff(-75,39)/74.5,40,9/800x600?access_token=pk.eyJ1Ijoic2ViMTAxMSIsImEiOiJjbWUydDVxZnUwdHV4Mmtwa3Q0b2FmdWFiIn0.4-Hb5WmIe21pLf3-clWYnw`} alt="" /> */}
                 </div>

@@ -24,7 +24,7 @@ export default function Card_huecos() {
                     </div>
                     <div className="bg-secondary row rounded mt-2">
                         <Modal
-                        direccion={"Cra. 85d #28"}
+                        direccion={"Cra 85d #28"}
                         categoria={"grande"}
                         comentarios={"Es un hueco de 1.5 milimetros hay que tener mucho cuidado"}
                         modalID={`modal-cra85`}
