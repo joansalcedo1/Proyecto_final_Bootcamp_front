@@ -2,19 +2,52 @@ import Map, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import convertirCoords from "../services/geoCoding.js";
 import { useEffect, useState } from "react"
+import { fetchDb } from "../services/fetchDb"
 
 export default function MapBoxGeneral() {
-
-    let direcciones = ["cra 53 #15-56", "Cra. 85d #28","Cl. 14 #7306","Cl. 14 #48a-05"]
+    //direcciones tal y como vienen de la bd
+    const [direcciones, setDirecciones] = useState([])
+    //coordenadas que el mapa va a renderizar como markers
+    const [coords, setCoords] = useState([])
+    const [categorias, setCategorias] = useState([])
+    const [markerColor, setMarkerColor] = useState("blue")
     //Configuraciones del mapa
     const ancho = "100%"
     const largo = 400
-    //coordenadas que el mapa va a renderizar como markers
-    const [coords, setCoords] = useState([])
 
+    //use efect para hacer el fetch de todos los huecos
+    //pero solo se guarda las direcciones en el estado local de direcciones
+    useEffect(() => {
+        let mapInstance = null; // referencia para cleanup 
+        async function traerHuecos() {
+            try {
+                const data = await fetchDb()
+                if (data) {
+                    setCategorias(data.map(hueco => hueco.categoria));
+                    setDirecciones(data.map(hueco => hueco.direccion));
+                } else {
+                    console.log("No existen huecos que mostrar")
+                }
+            } catch (error) {
+                console.log("Error haciendo fetch de hueco: ", error)
+            }
+        }
+        traerHuecos()
+        return () => {
+            // 🔹 Buscar el canvas WebGL de react-map-gl y destruir el contexto
+            const canvas = document.querySelector('canvas.mapboxgl-canvas');
+            if (canvas) {
+                const gl = canvas.getContext('webgl');
+                if (gl) gl.getExtension('WEBGL_lose_context')?.loseContext();
+            }
+        };
+
+    }, [])
+    //use efect para convertir las direcciones guardadas
+    //en coordenadas y guardarlas
     useEffect(() => {
         //se llama a la funcion convertirCoords: API de mapbox 
-        const fetchData = async () => {
+        const convertir = async () => {
             try {
                 //array de las direcciones convertidas en coordenadas 
                 const nuevaCoords = []
@@ -34,8 +67,8 @@ export default function MapBoxGeneral() {
                 console.log(error);
             }
         };
-        fetchData();
-    }, []);
+        convertir();
+    }, [direcciones]);
 
     //console.log("desde mapBox General", coords)
     //se utiliza para el initial view del mapa 
@@ -62,7 +95,7 @@ export default function MapBoxGeneral() {
                         key={index}
                         longitude={lng}
                         latitude={lat}
-                        color="red" // Puedes cambiar el color del marker aquí
+                        color={markerColor} // Puedes cambiar el color del marker aquí
                     />
                 ))
             }

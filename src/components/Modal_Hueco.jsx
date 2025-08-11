@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import MyMap from "./MapboxModal";
-export default function Modal({ direccion, categoria, comentarios, modalID }) {
+import { Link } from "react-router-dom";
+
+export default function Modal({ _id, direccion, categoria, comentarios, modalID }) {
     const [bgColor, setBgColor] = useState("")
+
     useEffect(() => {
 
         if (!categoria) return;
@@ -11,7 +14,7 @@ export default function Modal({ direccion, categoria, comentarios, modalID }) {
                 setBgColor("bg-danger")
                 break;
             case "mediano":
-                setBgColor("bg-verde") //revisar colores
+                setBgColor("bg-warning") //revisar colores
                 break;
             case "pequeño":
                 setBgColor("bg-info")
@@ -21,8 +24,6 @@ export default function Modal({ direccion, categoria, comentarios, modalID }) {
         }
 
     }, [categoria])
-    const encodedAddress = encodeURIComponent(direccion);
-
 
     return (
 
@@ -50,22 +51,21 @@ export default function Modal({ direccion, categoria, comentarios, modalID }) {
                                 {/* Columna con mapa y botón */}
                                 <div className="col d-flex flex-column">
                                     <p><b>Observaciones: </b>{comentarios}</p>
-                                    <div id="img-container" className="flex-grow-1">
-                                        <MyMap
-                                        corde={direccion}/>
-                                    </div>
 
+                                    <MyMap
+                                        corde={direccion}
+                                        color={bgColor}
+                                    />
                                     <div className="text-center mt-3">
-                                        <button type="button" className="btn btn-secondary btn-sm">
-                                            ¿Hueco tapado?
-                                        </button>
+                                        <Link to={`/misReportes/${_id}`} >
+                                            <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                                ¿Hueco tapado?
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
 
                             </div>
-
-
-
                             <div class="text-center mt-4">
                                 <button className="btn btn-primary btn-lg" data-bs-dismiss="modal">Cerrar</button>
                             </div>

@@ -15,13 +15,13 @@ function Header() {
                 <nav class="navbar text-white bg-dark">
 
                     <div class="container d-flex justify-content-between align-items-center">
-                        <Link to={`/reportar`}>
-                            <div className="ps-4 pe-4 text-center align-items-center"><h5>Reportar</h5></div>
+                        <Link className="text-white text-decoration-none" to={`/reportar`}>
+                            <div className="ps-4 pe-4 text-center "><h5>Reportar</h5></div>
                         </Link>
-                        <Link to={"/"}>
+                        <Link className="text-white text-decoration-none" to={"/"}>
                             <div className="navbar-brand mb-0 h1 text-white mx-auto"><h1>Cali Hueco Founder</h1></div>
                         </Link>
-                        <Link to={"/misReportes"}>
+                        <Link className="text-white text-decoration-none" to={"/misReportes"}>
                         <div className="pe-4 ps-4"><h5>Mis reportes</h5></div>
                         </Link>
                     </div>

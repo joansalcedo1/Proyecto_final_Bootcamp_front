@@ -7,11 +7,12 @@ import { Route, Routes } from "react-router-dom"
 function App() {
   return (
     <>
-      <Header/>
+      <Header />
       <Routes>
         <Route path="/" element={<Hero />}></Route>
         <Route path="/reportar" element={<Reportar />}></Route>
-        <Route path="/misReportes" element={MisReportes}></Route>
+        <Route path="/misReportes/:_id" element={<MisReportes />}></Route>
+        <Route path="/misReportes/" element={<MisReportes />}></Route>
       </Routes>
     </>
   )

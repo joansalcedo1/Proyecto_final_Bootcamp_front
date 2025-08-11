@@ -1,5 +1,6 @@
 import MyMap from "./MapBoxGeneral.jsx"
 import Huecos from "./Huecos"
+import { Link } from "react-router-dom";
 
 export default function Hero() {
 
@@ -13,7 +14,9 @@ export default function Hero() {
                             <div class="m-3 p-2 h6">
                                 <h7>Reportalos y ayudemos a llevar un recuento de todos los craters que dañan nuestros vehiculos</h7>
                             </div>
+                            <Link className="text-white text-decoration-none" to={"/reportar"}>
                             <button type="button" class="btn btn-primary btn-lg btn-block font-weight-bold">Reportalo!!</button>
+                            </Link>
                         </div>
                     </div>
                     <div id="carousel_dad" class="col">
