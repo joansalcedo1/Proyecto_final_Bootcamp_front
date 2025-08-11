@@ -11,9 +11,7 @@ export default function Hero() {
                 if (data) {
                     setCoords(data)
                 }
-                console.log(coords)
-                console.log("coordenada, lgn:", data[0])
-                console.log("coordenada lat:", data[1])
+
             } catch (error) {
                 console.log(error)
             }
@@ -21,7 +19,6 @@ export default function Hero() {
         fetchData()
         
     }, []);
-    console.log(arrayP[1])
     return (
         <>
             <section class="m-4 mt-5 ">
@@ -66,7 +63,10 @@ export default function Hero() {
                 </div>
                 <div className="text-center container">
                     <h1>MAPA AQUI</h1>
-                    <img class="img-fluid img" src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s+ff0000(-74.5,40),pin-l+0000ff(-75,39)/74.5,40,9/800x600?access_token=pk.eyJ1Ijoic2ViMTAxMSIsImEiOiJjbWUydDVxZnUwdHV4Mmtwa3Q0b2FmdWFiIn0.4-Hb5WmIe21pLf3-clWYnw`} alt="" />
+                    <div>
+                        <MapboxExample/>
+                    </div>
+                    {/* <img class="img-fluid img" src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s+ff0000(-74.5,40),pin-l+0000ff(-75,39)/74.5,40,9/800x600?access_token=pk.eyJ1Ijoic2ViMTAxMSIsImEiOiJjbWUydDVxZnUwdHV4Mmtwa3Q0b2FmdWFiIn0.4-Hb5WmIe21pLf3-clWYnw`} alt="" /> */}
                 </div>
             </section>
         </>

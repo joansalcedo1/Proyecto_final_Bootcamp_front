@@ -9,7 +9,7 @@ export default function Card_huecos() {
                     <div className="row ">
                         <div>
                             <h5 className="card-title">
-                                Cra 53 #15-56
+                                Cra. 85d #28
                                 {/* {libro.titulo.replaceAll("_", " ")} */}
                             </h5>
                         </div>
@@ -24,10 +24,10 @@ export default function Card_huecos() {
                     </div>
                     <div className="bg-secondary row rounded mt-2">
                         <Modal
-                        direccion={"cra 53 #15-56"}
+                        direccion={"Cra. 85d #28"}
                         categoria={"grande"}
                         comentarios={"Es un hueco de 1.5 milimetros hay que tener mucho cuidado"}
-                        modalID={"modal-cra53"}
+                        modalID={`modal-cra85`}
                         
                             //  direccion={libro.portada}
                             // categoria={libro.autor.replaceAll("_", " ")}
