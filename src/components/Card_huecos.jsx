@@ -1,5 +1,24 @@
 import Modal from "./Modal_Hueco"
-export default function Card_huecos() {
+import { useEffect,useState } from "react"
+export default function Card_huecos({hueco}) {
+    const [bgColor, setBgColor] = useState("")
+
+    useEffect(()=>{
+        switch (hueco.categoria) {
+            case "pequeño":
+                setBgColor("bg-info")
+                break;
+            case "mediano":
+                setBgColor("bg-warning")
+                break;
+            case "grande":
+                setBgColor("bg-danger")
+                break;
+        
+            default:
+                break;
+        }
+    },[])
     
     return (
         <>
@@ -9,14 +28,14 @@ export default function Card_huecos() {
                     <div className="row ">
                         <div>
                             <h5 className="card-title">
-                                Cra. 85d #28
+                                {hueco.direccion}
                                 {/* {libro.titulo.replaceAll("_", " ")} */}
                             </h5>
                         </div>
                         <div className="">
                             {/*Pensarlo como una capsula con color*/}
                             <p className="card-text text-secondary">
-                                      <span class="badge bg-danger">Grande</span>
+                                      <span class={`badge ${bgColor}`}>{hueco.categoria}</span>
 
                                 {/* {libro.generos.join(", ")} */}
                             </p>

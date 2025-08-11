@@ -10,7 +10,7 @@ async function convertirCoords(direccion) {
             if (data.features && data.features.length > 0) {
                 const [lng, lat] = data.features[0].center;
                 coords.push(lng,lat)
-                console.log("Coordenadas desde services:", { lat, lng });
+                //console.log("Coordenadas desde services:", { lat, lng });
             } else {
                 console.log("No se encontraron resultados.");
             }

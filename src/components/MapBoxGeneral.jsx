@@ -37,7 +37,7 @@ export default function MapBoxGeneral() {
         fetchData();
     }, []);
 
-    console.log("desde mapBox General", coords)
+    //console.log("desde mapBox General", coords)
     //se utiliza para el initial view del mapa 
     const [lng0, lat0] = coords[0] || [-76.53, 3.40];
 

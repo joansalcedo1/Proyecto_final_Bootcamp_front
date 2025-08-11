@@ -2,14 +2,17 @@ import Footer from "./components/Footer"
 import Header from "./components/Header"
 import Hero from "./components/Hero"
 import Reportar from "./components/Reportar"
-import MapboxExample from "./components/MapboxModal"
-import Huecos from "./components/Huecos"
+import MisReportes from "./components/MisReportes"
+import { Route, Routes } from "react-router-dom"
 function App() {
   return (
     <>
-    <Header/>
-    <Hero/>
-    <Huecos/>
+      <Header/>
+      <Routes>
+        <Route path="/" element={<Hero />}></Route>
+        <Route path="/reportar" element={<Reportar />}></Route>
+        <Route path="/misReportes" element={MisReportes}></Route>
+      </Routes>
     </>
   )
 }
