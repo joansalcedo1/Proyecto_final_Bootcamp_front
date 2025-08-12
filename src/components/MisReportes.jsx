@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getByID, update, borrar, searchByCloseDir } from "../services/fetchDb";
+import { Link } from "react-router-dom";
 export default function MisReportes() {
     const { _id } = useParams()
     const [direccion, setDireccion] = useState("");
@@ -9,7 +10,6 @@ export default function MisReportes() {
     const [busqueda, setBusqueda] = useState("")
     const [resultados, setResultados] = useState([])
     useEffect(() => {
-
         async function traerPorID() {
             try {
                 let hueco = await getByID(_id)
@@ -31,17 +31,21 @@ export default function MisReportes() {
     async function handleDelete(e) {
         e.preventDefault();
         let res = await borrar(_id)
+        if(res.status(200)){
+            alert("Hueco borrado")
+        }
     }
-
 
     async function handleSearch(e) {
         e.preventDefault();
         try {
             let res = await searchByCloseDir(busqueda)
             let data = await res.json()
-
-            setResultados(data)
-
+            if (data.length < 0) {
+                setResultados(null)
+            } else {
+                setResultados(data)
+            }
         } catch (error) {
             console.log(error)
             return false
@@ -55,7 +59,7 @@ export default function MisReportes() {
         return (
             <>
                 <section id="buscarHuecos_dad">
-                    <div className="d-flex justify-items-center align-items-center">
+                    <div className="d-grid">
                         <div className="container mt-3">
                             {/* Barra de búsqueda */}
                             <form onSubmit={handleSearch}>
@@ -68,23 +72,43 @@ export default function MisReportes() {
                                         onChange={(e) => setBusqueda(e.target.value)}
                                         aria-describedby="button-addon2"
                                     />
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                                    <button class="btn btn-secondary" type="button" id="button-addon2">Buscar</button>
                                 </div>
                             </form>
                             {/* Mostrar resultados */}
-                            {resultados.length > 0 && (
-                                <div className="mt-4">
+                            {resultados ? (
+                                <div className="mt-4 ">
                                     <h3>Resultados de búsqueda:</h3>
-                                    <ul className="list-group">
+                                    <div className="list-group">
                                         {resultados.map((hueco) => (
-                                            <li key={hueco._id} className="list-group-item">
-                                                <p><strong>Dirección:</strong> {hueco.direccion}</p>
-                                                <p><strong>Categoría:</strong> {hueco.categoria}</p>
-                                                <p><strong>Observaciones:</strong> {hueco.observaciones}</p>
-                                            </li>
+                                            <div className="d-flex row">
+                                                <div key={hueco._id} className="list-group-item col">
+                                                    <p ><strong>Dirección:</strong> {hueco.direccion}</p>
+                                                    <p><strong>Categoría:</strong> {hueco.categoria}</p>
+                                                    <p><strong>Observaciones:</strong> {hueco.observaciones}</p>
+                                                </div>
+                                                <div className="col me-4 ms-4 mt-3 mb-3 justify-items-center">
+                                                    <Link to={`/misReportes/${hueco._id}`}>
+                                                        <button className="btn btn-block btn-lg btn-success">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="40%" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                                                            </svg>
+                                                        </button>
+                                                    </Link>
+                                                </div>
+                                            </div>
+
+
                                         ))}
-                                    </ul>
+                                    </div>
                                 </div>
+                            ) : (
+                                <>
+                                    <div className="mt-4">
+                                        <h3>Resultados de búsqueda:</h3>
+                                        <h2>Que bacano. No tenemos ni un hueco reportado en {`${busqueda}`}</h2>
+                                    </div>
+                                </>
                             )}
 
                         </div>
@@ -126,7 +150,7 @@ export default function MisReportes() {
                                     <label for="observaciones" class="form-label fw-semibold">Observaciones</label>
                                     <textarea class="form-control" id="observaciones" rows="3" placeholder="Danos detalles sobre ese crater..." value={observaciones} onChange={(e) => setObservaciones(e.target.value)} required></textarea>
                                 </div>
-                                <div className="bg-warning d-flex justify-content-center align-items-center">
+                                <div className="d-flex justify-content-center align-items-center">
                                     <button type="submit" class="btn btn-primary w-50 me-4 ms-4">Confirmar cambio</button>
                                     <button class="btn btn-danger w-50 me-4 ms-4" onClick={handleDelete} >Hueco ya no existe</button>
                                 </div>
